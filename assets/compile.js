@@ -15,7 +15,16 @@ Compile.prototype = {
       console.log('Dom元素不存在');
     }
   },
-
+  nodeToFragment:function(el){
+    var fragment = document.createDocumentFragment();
+    var child = el.firstChild;
+    while(child){
+      //将Dom元素移入fragment中
+      fragment.appendChild(child);
+      child= el.firstChild;
+    }
+    return fragment;
+  }
 
   
 }
