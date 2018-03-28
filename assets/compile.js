@@ -24,7 +24,25 @@ Compile.prototype = {
       child= el.firstChild;
     }
     return fragment;
-  }
+  },
+  compileElement:function(el){
+    var childNodes = el.childNodes;
+    var self = this;
+    [].slice.call(childNodes).forEach(function(node){
+      var reg = /\{\{(.*)\}\}/;
+      var text = node.textContent;
+
+      if(self.isElementNode(node)){
+        self.compile(node);
+      }else if(self.isTextNode(node)&&reg.test(text)){
+        self.compileText(node,reg.exec(text)[1]);
+      }
+
+      if(node.childNodes&&node.childNodes.length){
+        self.compileElement(node);
+      }
+    });
+  },
 
   
 }
