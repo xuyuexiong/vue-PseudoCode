@@ -43,6 +43,23 @@ Compile.prototype = {
       }
     });
   },
+  compile:function(node){
+    var nodeAttrs = node.attributes;
+    var self =this;
+    Array.prototype.forEach.call(nodeAttrs,function(attr){
+      var attrName = attr.name;
+      if(self.isDirective(attrName)){
+        var exp =attr.value;
+        var dir = attrName.substring(2);
+        if(self.isEventDirective(dir)){
+          self.compileEvent(node,self.vm,exp,dir);
+        }else{
+          self.compileModel(node,self.vm,exp,dir);
+        }
+        node.removeAttribute(attrName);
+      }
+    });
+  },
 
   
 }
