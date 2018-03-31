@@ -68,6 +68,14 @@ Compile.prototype = {
       self.updateText(node,value);
     });
   },
+  compileEvent:function(node,vm,exp,dir){
+    var enentType = dir.split(':')[1];
+    var cb = vm.methods && vm.methods[exp];
+
+    if(eventType&&cb){
+      node.addEventListener(eventType,cb.bind(vm),false);
+    }
+  },
   
 
   
