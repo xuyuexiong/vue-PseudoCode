@@ -76,7 +76,24 @@ Compile.prototype = {
       node.addEventListener(eventType,cb.bind(vm),false);
     }
   },
-  
+  compileModel:function(node,vm,exp,dir){
+    var self = this;
+    var val = this.vm[exp];
+    this.modelUpdater(node,val);
+    new Watcher(this.vm,exp,function(value){
+      self.modelUpdater(node,value);
+    });
+
+    node.addEventListener('input',function(e){
+      var newValue = e.target.value;
+      if(val===newValue){
+        return;
+      }
+      self.vm[exp]=newValue;
+      val = newValue;
+
+    });
+  },
 
   
 }
