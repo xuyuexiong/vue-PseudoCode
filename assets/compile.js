@@ -94,6 +94,18 @@ Compile.prototype = {
 
     });
   },
+  updateText:function(node,value){
+    node.textContent = typeof value === 'undefined'?'':value;
+  },
+  modelUpdater:function(node, value,oldValue){
+    node.value = typeof  value ==='undefined'?'':value;
+  },
+  isDirective:function(attr){
+    return attr.indexOf('v-') == 0;
+  },
+  isEventDirective:function(dir){
+    return dir.indexOf('on:') ===0;
+  }
 
   
 }
