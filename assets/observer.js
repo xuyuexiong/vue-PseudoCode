@@ -1,29 +1,29 @@
-function Observer(data){
+function Observer(data) {
   this.data = data;
   this.walk(data);
 }
 
-Observer.prototype={
-  walk:function(){
-    var self=this;
-    Object.keys(data).forEach(function(key){
-      self.defineReactive(data,key,data[key]);
+Observer.prototype = {
+  walk: function () {
+    var self = this;
+    Object.keys(data).forEach(function (key) {
+      self.defineReactive(data, key, data[key]);
     })
   },
-  defineReactive:function(data,key,val){
+  defineReactive: function (data, key, val) {
     var dep = new Dep();
     var childObj = observe(val);
-    Object.defineProperty(data,key,{
-      enumerable:true,
-      configurable:true,
-      get:function getter(){
-        if(Dep.target){
+    Object.defineProperty(data, key, {
+      enumerable: true,
+      configurable: true,
+      get: function getter() {
+        if (Dep.target) {
           dep.addSub(Dep.target);
         }
         return val;
       },
-      set:function setter(newVal){
-        if(newVal===val){
+      set: function setter(newVal) {
+        if (newVal === val) {
           return;
         }
         val = newVal;
@@ -35,22 +35,22 @@ Observer.prototype={
 
 };
 
-function observe (value,vm){
-  if(!value || typeof value !== 'object'){
+function observe(value, vm) {
+  if (!value || typeof value !== 'object') {
     return;
   }
   return new Observer(value);
 }
 
-function Dep(){
-  this.subs=[];
+function Dep() {
+  this.subs = [];
 }
 Dep.prototype = {
-  addSub:function(sub){
+  addSub: function (sub) {
     this.subs.push(sub);
   },
-  notify:function(){
-    this.subs.forEach(function(sub){
+  notify: function () {
+    this.subs.forEach(function (sub) {
       sub.update();
     });
   },
