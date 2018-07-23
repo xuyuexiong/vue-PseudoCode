@@ -29,10 +29,8 @@ Observer.prototype = {
         val = newVal;
         dep.notify();
       },
-
     });
   },
-
 };
 
 function observe(value, vm) {
@@ -45,6 +43,7 @@ function observe(value, vm) {
 function Dep() {
   this.subs = [];
 }
+
 Dep.prototype = {
   addSub: function (sub) {
     this.subs.push(sub);
@@ -55,4 +54,5 @@ Dep.prototype = {
     });
   },
 };
+
 Dep.target = null;
