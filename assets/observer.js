@@ -1,5 +1,6 @@
 function Observer(data) {
 	this.data = data;
+	//遍历data
 	this.walk(data);
 }
 
@@ -12,6 +13,7 @@ Observer.prototype = {
 	},
 	defineReactive: function (data, key, val) {
 		var dep = new Dep();
+		//如果有嵌套则递归
 		var childObj = observe(val);
 		Object.defineProperty(data, key, {
 			enumerable: true,
@@ -41,7 +43,7 @@ function observe(value, vm) {
 }
 
 function Dep() {
-	this.subs = [];
+	this.subs = [];//观察者列表
 }
 
 Dep.prototype = {

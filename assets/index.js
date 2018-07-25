@@ -6,7 +6,7 @@ function Vue(options) {
 	Object.keys(this.data).forEach(function (key) {
 		self.proxyKeys(key);
 	});
-	//监听data
+	//监听data的变化
 	observe(this.data);
 	new Compile(options.el, this);
 	options.mounted.call(this); //所有事情处理好后执行mounted函数
