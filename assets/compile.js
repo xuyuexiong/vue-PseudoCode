@@ -52,8 +52,10 @@ Compile.prototype = {
 				var exp = attr.value;
 				var dir = attrName.substring(2);
 				if (self.isEventDirective(dir)) {
+					//事件指令
 					self.compileEvent(node, self.vm, exp, dir);
 				} else {
+					//v-model指令
 					self.compileModel(node, self.vm, exp, dir);
 				}
 				node.removeAttribute(attrName);
@@ -76,6 +78,7 @@ Compile.prototype = {
 			node.addEventListener(eventType, cb.bind(vm), false);
 		}
 	},
+	//实现双向绑定
 	compileModel: function (node, vm, exp, dir) {
 		var self = this;
 		var val = this.vm[exp];

@@ -8,6 +8,7 @@ function Vue(options) {
 	});
 	//监听data的变化
 	observe(this.data);
+	//编译模板
 	new Compile(options.el, this);
 	options.mounted.call(this); //所有事情处理好后执行mounted函数
 }
