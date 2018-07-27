@@ -31,13 +31,11 @@ Compile.prototype = {
 		[].slice.call(childNodes).forEach(function (node) {
 			var reg = /\{\{(.*)\}\}/;
 			var text = node.textContent;
-
 			if (self.isElementNode(node)) {
 				self.compile(node);
 			} else if (self.isTextNode(node) && reg.test(text)) {
 				self.compileText(node, reg.exec(text)[1]);
 			}
-
 			if (node.childNodes && node.childNodes.length) {
 				self.compileElement(node);
 			}
@@ -73,7 +71,6 @@ Compile.prototype = {
 	compileEvent: function (node, vm, exp, dir) {
 		var enentType = dir.split(':')[1];
 		var cb = vm.methods && vm.methods[exp];
-
 		if (eventType && cb) {
 			node.addEventListener(eventType, cb.bind(vm), false);
 		}
@@ -86,7 +83,6 @@ Compile.prototype = {
 		new Watcher(this.vm, exp, function (value) {
 			self.modelUpdater(node, value);
 		});
-
 		node.addEventListener('input', function (e) {
 			var newValue = e.target.value;
 			if (val === newValue) {
@@ -94,7 +90,6 @@ Compile.prototype = {
 			}
 			self.vm[exp] = newValue;
 			val = newValue;
-
 		});
 	},
 	updateText: function (node, value) {
